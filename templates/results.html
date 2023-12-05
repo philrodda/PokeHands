@@ -125,12 +125,14 @@
 
 
     <div class="simButton">
-        <form action="#simulation-results" method="post">
+        <form method="post">
             <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
-            <input type="submit" value="Simulate Again">
+            <input type="submit" value="Simulate Again" onclick="simulateAgain();">
         </form>
     </div>
 </div>
+
+
 
 <div class="new-deck-form-container">
     <div class="newdeck">
@@ -139,6 +141,7 @@
     </form>
     </div>
 </div>
+
 
 
 <footer>
@@ -203,7 +206,19 @@
         });
     </script>
 
-
+<script>
+    function simulateAgain() {
+        // Perform any form validation or submission here if necessary
+        // ...
+    
+        // Scroll to the simulation results
+        var simulationResults = document.getElementById('simulation-results');
+        simulationResults.scrollIntoView({ behavior: 'smooth' });
+        
+        // Prevent the default form submission if you handle it via AJAX
+        // return false;
+    }
+    </script>
 
 </body>
 </html>

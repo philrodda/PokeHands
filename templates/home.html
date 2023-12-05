@@ -7,18 +7,39 @@
     <link rel="stylesheet" href="static\style.css">
 </head>
 <body>
-    <h1>Pokemon Deck Analyzer</h1>
-    <div class="inputForm">
-    <form action="#simulation-results" method="post" onsubmit="return validateDecklist()">
-        <textarea name="decklist" rows="20" cols="40" placeholder="Enter your decklist here in PTCGL format."></textarea>
-        <br>
-        <div class="simButton">
-            <input type="submit" value="Analyze Deck">
+    <h1>Pokémon TCG Deck Analyzer</h1>
+
+
+    <div class="content-container">
+        <div class="copy-container">
+            
+            <p>
+                Embarking on your strategic Pokemon journey has never been easier! Our handy tool is designed to give you the insights you need to optimize your deck and enhance your gameplay. Here's how it works: <br>
+                <br>
+                Deck Input: Simply enter your decklist into the text area provided. Make sure to use the PTCGL (Pokemon Trading Card Game Live) format. <br>
+                <br>
+                Hit the 'Analyze Deck' button and watch the magic happen! Our program will sift through your decklist, calculating the chances of drawing each card in your opening hand. <br>
+                <br>
+                Ever wonder about your chances of a card being picked as a prize card? Worry no more! We provide a detailed breakdown right below the draw chances chart. <br>
+                <br>
+                Curious about how your opening hand might look? Our 'Simulate Again' feature gives you a glimpse into potential game-starting scenarios, including the prize cards. <br>
+                <br>
+                Our goal is to make your deck-building experience as smooth and successful as possible. Whether you're a seasoned trainer or just starting out, PokeHands is here to support you on your path to becoming a Pokemon Master! <br>
+                
+            </p>
         </div>
-    </form>
+            <div class="inputForm">
+                <form action="/" method="post" onsubmit="return validateDecklist()">
+                    <textarea name="decklist" rows="20" cols="40" placeholder="Enter your decklist here in PTCGL format."></textarea>
+                    <br>
+                    <div class="simButton">
+                        <input type="submit" value="Analyze Deck">
+                    </div>
+                </form>
+            </div>
     </div>
 
-    
+
 </body>
 
 </html>

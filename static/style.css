@@ -6,7 +6,54 @@ html, body {
     background-image: url('/static/images/body_bg.png'); /* Adjust the path as needed */
 }
 
+.content-container {
+    display: flex;
+    justify-content: center; /* This will center the children horizontally */
+    align-items: flex-start; /* Aligns items to the top */
+    width: 100%; /* Ensures the container takes full width */
+    max-width: 1200px; /* Adjust max-width as needed */
+    margin: auto; /* Centers the container */
+    padding: 20px; /* Add some padding */
+}
 
+.copy-container {
+    flex: 1; /* Takes up half the width of the container */
+    padding-right: 20px; /* Adjust the padding as needed */
+    width: 80%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-color: #cacaca;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cacaca;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    border-radius: 10px 50px;
+    border-width: 1px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    margin-left: 15%;
+    margin-right: 15%;
+    background-image: url('images/container_bg.png');
+}
+
+.form-container {
+    flex: 50; /* Takes up the other half */
+    padding: 15%;
+}
+
+
+.copy-container,
+.form-container {
+    flex: 1; /* Each takes up equal space */
+    margin: 0 10px; /* Adds a margin between them */
+    padding: 20px; /* Adds some padding inside each container */
+    box-sizing: border-box; /* Includes padding in the width calculation */
+}
 
 
 .footer {
@@ -191,6 +238,7 @@ th {
     margin-left: 15%;
     margin-right: 15%;
     background-image: url('images/container_bg.png');
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),
 }
 
 .chart {
@@ -320,7 +368,11 @@ th {
 }
 
 
-
+@media (max-width: 768px) {
+    .content-container {
+        flex-direction: column;
+    }
+}
 
 
 .form {
