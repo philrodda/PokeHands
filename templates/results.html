@@ -119,7 +119,7 @@
 
 
         <!-- Include a button to re-submit the form and simulate again -->
-    <div class="button">
+    <div class="simButton">
         <form action="#simulation-results" method="post">
             <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
             <input type="submit" value="Simulate Again">
@@ -130,12 +130,17 @@
 
 
 
+<footer>
+    <div class="peek-container">
+        <img src="static\images\375px-011metapodpng.png" alt="Peeking Pokemon" class="peeking-image">
+        <a href="mailto:your-email@example.com?subject=Bug Report for PokeHands&body=Please describe the bug in detail:" class="report-bug-button">Report a Bug</a>
+    </div>
+</footer>
 
     <!-- <canvas id="drawChanceChart" width="400" height="200"></canvas> -->
 
     <script>
-        // Assuming `draw_chances` is an object that looks like this:
-        // { "Card Name 1": chance1, "Card Name 2": chance2, ... }
+
         var draw_chances = {{ draw_chances | tojson }};
         var labels = Object.keys(draw_chances);
         var data = Object.values(draw_chances).map(function(chance) { return parseFloat(chance).toFixed(2); });

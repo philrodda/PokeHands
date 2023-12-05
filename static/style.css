@@ -93,9 +93,15 @@ th {
 
 .simSection {
     border-style: solid;
-    border-color: #5c5c5c;
-    border-width: 2px;
+    border-color: #cacaca;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    border-radius: 10px 50px;
+    border-width: 1px;
     margin-top: 20px;
+    margin-bottom: 100px;
+    margin-left: 15%;
+    margin-right: 15%;
+
 }
 
 .sim {
@@ -118,14 +124,42 @@ th {
     }
   }
 
-.button {
+.simButton {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
 }
 
 
+.simButton input[type="submit"] {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 16px 32px;
+    margin: 4px 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #27ae60;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1.5;
+}
 
+.simButton input[type="submit"]:hover {
+    background-color: rgb(0, 85, 18); 
+    transition: all .5s;
+}
+  
 
 
 
@@ -134,17 +168,22 @@ th {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    border-style: solid;
-    border-color: #5c5c5c;
-    border-width: 2px;
+    border-color: #cacaca;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    border-radius: 10px 50px;
+    border-width: 1px;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 .chart {
     flex: 2;  /* Allows the chart to take twice the space of the table */
+    margin: 20px;
 }
 
 .table-container {
     flex: 1;  /* Table will take up the remaining space */
+    margin: 20px;
 }
 
 .probability-columns {
@@ -156,6 +195,10 @@ th {
     gap: 10px;
     max-width: 1200px; /* Adjust the max width as needed */
     margin: 0 auto; /* This centers the container itself in the parent */
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    border-radius: 10px 50px;
+    border-width: 1px;
+    padding: 50px;
 }
 
 .column {
@@ -166,9 +209,11 @@ th {
 .card-probability {
     margin-bottom: 0px; /* Space between each card's probabilities */
     border-style: solid;
-    border-color: #979797;
-    border-width: 2px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    border-radius: 10px;
+    border-width: 1px;
     display: block;
+    padding: 10px;
     /* If needed, add padding here to create space inside each .card-probability */
 }
 
@@ -178,3 +223,80 @@ th {
         width: 95%;
     }
 } */
+
+
+
+
+
+.report-bug-button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    z-index: 1;
+
+
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #27ae60;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1.5;
+    outline: none;
+    overflow: hidden;
+    padding: 13px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.report-bug-button:hover {
+    background-color: rgb(0, 85, 18); 
+    position: relative; 
+    z-index: 2; /* Above the image */
+    /* Other button styles */
+}
+
+.peek-container {
+    position: relative; /* Container must be relative for absolute positioning of children */
+    display: flex; /* Optional: For layout purposes */
+    align-items: center; /* Optional: Align items vertically */
+}
+
+.peeking-image {
+    position: absolute;
+    z-index: 0; /* Lower z-index to place it behind the button */
+    bottom: 20px; /* Negative value to move it up behind the button */
+    left: 0; /* Adjust this value to position the image to the right */
+    width: 100px; /* Set a fixed width or use percentage */
+    height: auto; /* Maintain aspect ratio */
+    margin-top: 200px;
+
+}
+
+
+
+
+
+
+
+
+
