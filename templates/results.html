@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokeHands - Results</title>
+    <link rel="stylesheet" href="static\style.css">
 </head>
 <body>
     <h1>Deck Analysis Results</h1>
@@ -40,6 +41,40 @@
         {% endfor %}
     </ul>
 {% endfor %}
+
+
+<a id="simulation-results"></a>
+<h2>Simulated Opening Hand</h2>
+<ul>
+    {% for card in initial_hand %}
+        <li>{{ card }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Simulated Prize Cards</h2>
+<ul>
+    {% for card in prize_cards %}
+        <li>{{ card }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Include a button to re-submit the form and simulate again -->
+<form action="#simulation-results" method="post">
+    <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
+    <input type="submit" value="Simulate Again">
+</form>
+
+
+<!-- <script> USELESS SMOOTHSCROLL SCRIPT BUY MAYBE?????
+    document.addEventListener('DOMContentLoaded', (event) => {
+        if (window.location.hash === '#simulation-results') {
+            document.getElementById('simulation-results').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+    </script> -->
+
 
 </body>
 </html>

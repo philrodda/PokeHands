@@ -7,12 +7,19 @@ def home():
     if request.method == 'POST':
         raw_decklist = request.form['decklist']
         parsed_decklist = parse_decklist(raw_decklist)
+
+        # Calculate draw and prize card probabilities
         draw_chances, prize_chances = calculate_probabilities(parsed_decklist)
 
-        # Make sure to pass the variables to the template with the correct names
-        return render_template('results.html', draw_chances=draw_chances, prize_chances=prize_chances)
+        # Simulate the opening hand and prize cards
+        initial_hand, prize_cards = simulate_opening_hand_and_prize_cards(parsed_decklist)
+
+        # Render results.html with probabilities and simulated hands
+        return render_template('results.html', draw_chances=draw_chances, prize_chances=prize_chances, initial_hand=initial_hand, prize_cards=prize_cards, raw_decklist=raw_decklist)
     
     return render_template('home.html')
+
+
 
 
 
@@ -169,6 +176,26 @@ def calculate_prize_card_probability(deck_size, copies_in_deck):
 
     return prize_probabilities
 
+
+
+import random
+
+def simulate_opening_hand_and_prize_cards(decklist):
+    # Flatten the decklist into a list of cards
+    full_deck = []
+    for card, quantity in decklist.items():
+        full_deck.extend([card] * quantity)
+    
+    # Shuffle the full deck to randomize card order
+    random.shuffle(full_deck)
+    
+    # Draw the initial 7 cards for the hand
+    initial_hand = full_deck[:7]
+    
+    # Set aside the next 6 cards for the prize cards
+    prize_cards = full_deck[7:13]
+    
+    return initial_hand, prize_cards
 
 
 
