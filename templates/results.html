@@ -4,77 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokeHands - Results</title>
-    <link rel="stylesheet" href="static\style.css">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     <h1>Deck Analysis Results</h1>
     <!-- Display results here -->
     <p>{{ decklist }}</p>
     
-    <!-- ... existing HTML ... -->
     <h2>Draw Chances</h2>
-        <table>
-            <tr>
-                <th>Card Name</th>
-                <th>Chance to Draw At Least 1</th>
-            </tr>
-            {% for card, chance in draw_chances.items() %}
-            <tr>
-                <td>{{ card }}</td>
-                <td>{{ chance|round(2) }}%</td>
-            </tr>
-            {% endfor %}
-        </table>
+    <table>
+        <tr>
+            <th>Card Name</th>
+            <th>Chance to Draw At Least 1</th>
+        </tr>
+        {% for card, chance in draw_chances.items() %}
+        <tr>
+            <td>{{ card }}</td>
+            <td>{{ chance|round(2) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <h2>Prize Card Probabilities</h2>
-    {% for card, chance in draw_chances.items() %}
-    <!-- ... -->
-    <td>{{ chance|round(2) }}</td>
-    <!-- ... -->
-{% endfor %}
+    <table>
+        <tr>
+            <th>Card Name</th>
+            <th>Probability</th>
+        </tr>
+        {% for card, chances in prize_chances.items() %}
+        <tr>
+            <td>{{ card }}</td>
+            <td>
+                <ul>
+                    {% for k, prob in chances.items() %}
+                    <li>{{ k }} copy/copies in prize cards: {{ prob|round(2) }}%</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
-{% for card, chances in prize_chances.items() %}
-    <h3>{{ card }}</h3>
+
+    <a id="simulation-results"></a>
+    <h2>Simulated Opening Hand</h2>
     <ul>
-        {% for k, prob in chances.items() %}
-        <li>{{ k }} copy/copies in prize cards: {{ prob|round(2) }}%</li>
+        {% for card in initial_hand %}
+            <li>{{ card }}</li>
         {% endfor %}
     </ul>
-{% endfor %}
 
+    <h2>Simulated Prize Cards</h2>
+    <ul>
+        {% for card in prize_cards %}
+            <li>{{ card }}</li>
+        {% endfor %}
+    </ul>
 
-<a id="simulation-results"></a>
-<h2>Simulated Opening Hand</h2>
-<ul>
-    {% for card in initial_hand %}
-        <li>{{ card }}</li>
-    {% endfor %}
-</ul>
-
-<h2>Simulated Prize Cards</h2>
-<ul>
-    {% for card in prize_cards %}
-        <li>{{ card }}</li>
-    {% endfor %}
-</ul>
-
-<!-- Include a button to re-submit the form and simulate again -->
-<form action="#simulation-results" method="post">
-    <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
-    <input type="submit" value="Simulate Again">
-</form>
-
-
-<!-- <script> USELESS SMOOTHSCROLL SCRIPT BUY MAYBE?????
-    document.addEventListener('DOMContentLoaded', (event) => {
-        if (window.location.hash === '#simulation-results') {
-            document.getElementById('simulation-results').scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-    });
-    </script> -->
-
-
+    <!-- Include a button to re-submit the form and simulate again -->
+    <form action="#simulation-results" method="post">
+        <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
+        <input type="submit" value="Simulate Again">
+    </form>
 </body>
 </html>

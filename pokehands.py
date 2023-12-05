@@ -98,8 +98,8 @@ def parse_decklist(decklist_string):
         if current_section == 'Energy' and card_name.startswith('Basic'):
             for energy_symbol, energy_full_name in energy_types.items():
                 if energy_symbol in card_name:
-                    # Replace only the symbol, not the whole word "Energy"
-                    card_name = card_name.replace(energy_symbol, energy_full_name)
+                    # Replace the symbol with the full name and ensure "Energy" is added only once
+                    card_name = "Basic " + energy_full_name + " Energy"
                     break
 
 
@@ -113,7 +113,11 @@ def parse_decklist(decklist_string):
 
 from math import comb
 
+
+##########################OLD SHIT###############################################
 def calculate_draw_chance(deck_size, copies_in_deck, cards_drawn):
+    if cards_drawn > deck_size or deck_size == 0:  # Add a check to prevent division by zero
+        return 0
     # Calculate the probability of NOT drawing the card
     prob_not_drawing_card = (
         comb(deck_size - copies_in_deck, cards_drawn) /
@@ -121,6 +125,19 @@ def calculate_draw_chance(deck_size, copies_in_deck, cards_drawn):
     )
     # Subtract from 1 to get the probability of drawing the card
     return 1 - prob_not_drawing_card
+
+############################### NEW SHIT ########################################
+# def calculate_draw_chance(deck_size, copies_in_deck, cards_drawn):
+#     probabilities = {}
+#     for i in range(1, min(copies_in_deck, 4) + 1):  # Calculate for up to 4 copies
+#         # Probability of drawing exactly i copies
+#         prob_drawing_i_copies = (
+#             comb(copies_in_deck, i) *
+#             comb(deck_size - copies_in_deck, cards_drawn - i) /
+#             comb(deck_size, cards_drawn)
+#         )
+#         probabilities[i] = prob_drawing_i_copies * 100  # Convert to percentage
+#     return probabilities
 
 
 
@@ -141,20 +158,42 @@ def calculate_probabilities(decklist):
 
     return sorted_draw_chances, prize_chances
 
+# def calculate_probabilities(decklist):
+#     deck_size = sum(decklist.values())  # Total number of cards in the deck
+#     draw_chances = {}
+#     prize_chances = {}
+
+#     for card, quantity in decklist.items():
+#         draw_chances[card] = calculate_draw_chance(deck_size, quantity, 7)  # Draw chance
+#         prize_chances[card] = calculate_prize_card_probability(deck_size, quantity)  # Prize card chance
+
+#     # Sort cards by highest draw chance first
+#     sorted_draw_chances = {
+#         card: {
+#             i: draw_chances[card][i] * 100 if i in draw_chances[card] else 'N/A'
+#             for i in range(1, 5)
+#         }
+#         for card in draw_chances
+#     }
+
+#     return sorted_draw_chances, prize_chances
+
 
 
 from math import comb
 
 def calculate_prize_card_probability(deck_size, copies_in_deck):
+    if deck_size <= 13:  # Ensure there's enough cards for initial hand and prize cards
+        return {k: 0 for k in range(5)}
+    
     adjusted_deck_size = deck_size - 7  # Deck size after drawing the initial hand
     prize_probabilities = {}
-
+    
     for k in range(min(5, copies_in_deck) + 1):  # From 0 to min(4, copies_in_deck)
         total_prob = 0
-        # Limit 'drawn' to the range from 0 to the number of cards drawn initially
         for drawn in range(min(7, copies_in_deck) + 1):  # From 0 to min(7, copies_in_deck)
             # Calculate probability of drawing 'drawn' copies in initial hand
-            if 7 - drawn >= 0:  # Ensure non-negative
+            if 7 - drawn >= 0 and deck_size - copies_in_deck >= 7 - drawn:  # Ensure non-negative and valid comb arguments
                 prob_drawn_initial = (
                     comb(copies_in_deck, drawn) *
                     comb(deck_size - copies_in_deck, 7 - drawn) /
@@ -164,7 +203,7 @@ def calculate_prize_card_probability(deck_size, copies_in_deck):
                 prob_drawn_initial = 0
 
             # Calculate probability of 'k' copies being in prize cards given 'drawn' in initial hand
-            if k + drawn <= copies_in_deck and 6 - k >= 0:  # Ensure non-negative
+            if k + drawn <= copies_in_deck and 6 - k >= 0:  # Ensure non-negative and valid comb arguments
                 prob_k_in_prize_given_drawn = (
                     comb(copies_in_deck - drawn, k) *
                     comb(adjusted_deck_size - copies_in_deck + drawn, 6 - k) /
@@ -175,7 +214,6 @@ def calculate_prize_card_probability(deck_size, copies_in_deck):
         prize_probabilities[k] = total_prob * 100  # Convert to percentage
 
     return prize_probabilities
-
 
 
 import random
