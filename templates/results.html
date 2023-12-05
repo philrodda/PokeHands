@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeHands - Results</title>
+</head>
+<body>
+    <h1>Deck Analysis Results</h1>
+    <!-- Display results here -->
+    <p>{{ decklist }}</p>
+    
+    <!-- ... existing HTML ... -->
+    <h2>Draw Chances</h2>
+        <table>
+            <tr>
+                <th>Card Name</th>
+                <th>Chance to Draw At Least 1</th>
+            </tr>
+            {% for card, chance in probabilities.items() %}
+            <tr>
+                <td>{{ card }}</td>
+                <td>{{ chance|round(2) }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    <h2>Prize Card Probabilities</h2>
+    {% for card, probabilities in prize_chances.items() %}
+        <h3>{{ card }}</h3>
+        <ul>
+            {% for k, prob in probabilities.items() %}
+            <li>{{ k }} copy/copies in prize cards: {{ prob|round(2) }}%</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+</body>
+</html>
