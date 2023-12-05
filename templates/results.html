@@ -5,70 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokeHands - Results</title>
     <link rel="stylesheet" href="static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Deck Analysis Results</h1>
     <!-- Display results here -->
     <p>{{ decklist }}</p>
     
+
     <h2>Draw Chances</h2>
-    <table>
-        <tr>
-            <th>Card Name</th>
-            <th>Chance to Draw At Least 1</th>
-        </tr>
-        {% for card, chance in draw_chances.items() %}
-        <tr>
-            <td>{{ card }}</td>
-            <td>{{ chance|round(2) }}</td>
-        </tr>
-        {% endfor %}
-    </table>
 
-    <h2>Prize Card Probabilities</h2>
-    <table>
-        <tr>
-            <th>Card Name</th>
-            <th>Probability of Prizing</th>
-        </tr>
-        {% for card, chances in prize_chances.items() %}
-        <tr>
-            <td>{{ card }}</td>
-            <td>
-                <ul>
-                    {% for k, prob in chances.items() %}
-                    <li>{{ k }} copy/copies in prize cards: {{ prob|round(2) }}%</li>
-                    {% endfor %}
-                </ul>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
 
+<div class="results-container">
+    <div class="chart"
+        <div class="chart-container">
+            <canvas id="drawChanceChart" width="400" height="400"></canvas>
+        </div>
+
+
+
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Card Name</th>
+                    <th>Chance to Draw At Least 1</th>
+                </tr>
+                {% for card, chance in draw_chances.items() %}
+                <tr>
+                    <td>{{ card }}</td>
+                    <td>{{ chance|round(2) }}</td>
+                </tr>
+                {% endfor %}
+                <!-- <canvas id="drawChanceChart" width="400" height="400"></canvas> -->
+
+            </table>
+    </div>
+</div>
+
+        <h2>Prize Card Probabilities</h2>
+
+        
+        <div class="probability-columns">
+            <!-- Create five columns -->
+            {% for i in range(6) %}
+            
+                {% for card, chances in prize_chances.items() %}
+                    {% if loop.index0 % 6 == i %}
+                        <div class="card-probability">
+                            <strong>{{ card }}</strong>
+                            <ul>
+                                {% for k, prob in chances.items() %}
+                                <li>{{ k }} copy/copies in prize cards: {{ prob|round(2) }}%</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            
+            {% endfor %}
+        
+        
+            
+                {% for card, chances in prize_chances.items() %}
+                    {% if loop.index is even %}
+                        <div class="card-probability">
+                            <strong>{{ card }}</strong>
+                            <ul>
+                                {% for k, prob in chances.items() %}
+                                <li>{{ k }} copy/copies in prize cards: {{ prob|round(2) }}%</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            
+        </div>
+          
 
     <a id="simulation-results"></a>
 
 
-<div class="sim">
-    <div class="column">
 
-        <h2>Simulated Opening Hand</h2>
 
-        <ul>
-            {% for card in initial_hand %}
-                <li>{{ card }}</li>
-            {% endfor %}
-        </ul>
+
+
+
+<div class="simSection">
+    <div class="sim">
+        <div class="simColumn">
+
+            <h2>Simulated Opening Hand</h2>
+
+            <ul>
+                {% for card in initial_hand %}
+                    <li>{{ card }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="simColumn">
+            <h2>Simulated Prize Cards</h2>
+
+            <ul>
+                {% for card in prize_cards %}
+                    <li>{{ card }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
-    <div class="column">
-        <h2>Simulated Prize Cards</h2>
 
-        <ul>
-            {% for card in prize_cards %}
-                <li>{{ card }}</li>
-            {% endfor %}
-        </ul>
+
+
+
+        <!-- Include a button to re-submit the form and simulate again -->
+    <div class="button">
+        <form action="#simulation-results" method="post">
+            <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
+            <input type="submit" value="Simulate Again">
+        </form>
     </div>
 </div>
 
@@ -76,12 +131,56 @@
 
 
 
-    <!-- Include a button to re-submit the form and simulate again -->
-    <form action="#simulation-results" method="post">
-        <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
-        <input type="submit" value="Simulate Again">
-    </form>
+    <!-- <canvas id="drawChanceChart" width="400" height="200"></canvas> -->
 
+    <script>
+        // Assuming `draw_chances` is an object that looks like this:
+        // { "Card Name 1": chance1, "Card Name 2": chance2, ... }
+        var draw_chances = {{ draw_chances | tojson }};
+        var labels = Object.keys(draw_chances);
+        var data = Object.values(draw_chances).map(function(chance) { return parseFloat(chance).toFixed(2); });
+
+        // Create an array of label and data pairs
+        var labelDataPairs = labels.map(function(label, index) {
+            return { label: label, data: data[index] };
+        });
+
+        // Sort the pairs in ascending order of data (probability)
+        labelDataPairs.sort(function(a, b) {
+            return b.data - a.data;
+        });
+
+        // Unzip the pairs back into labels and data arrays
+        labels = labelDataPairs.map(function(pair) {
+            return pair.label;
+        });
+        data = labelDataPairs.map(function(pair) {
+            return parseFloat(pair.data).toFixed(2);
+        });
+
+        var ctx = document.getElementById('drawChanceChart').getContext('2d');
+        var drawChanceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Chance to Draw At Least 1',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>

@@ -2,7 +2,7 @@ html, body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     color: #333;
-    margin: 0;
+    margin: 10px;
     padding: 0;
 }
 
@@ -28,11 +28,13 @@ html, body {
 
 h1 {
     color: #5c5c5c;
+    text-align: center;
 }
 
 h2 {
     border-bottom: 1px solid #eee;
     padding-bottom: 0.5rem;
+    text-align: center;
 }
 
 ul {
@@ -74,23 +76,40 @@ table, th, td {
 }
 
 th, td {
-    text-align: left;
-    padding: 8px;
+    padding: 4px 8px;
+    line-height: 1.2;
+    width: max-content;
 }
 
 th {
     background-color: #f8f8f8;
 }
 
+
+
+
+
+
+
+.simSection {
+    border-style: solid;
+    border-color: #5c5c5c;
+    border-width: 2px;
+    margin-top: 20px;
+}
+
 .sim {
     display: flex;
-    padding: 100px; /* This should be in the format of padding: 100px; if you want to apply it on all sides */
-    justify-content: space-around; /* This will space out your columns evenly */
+    justify-content: center; 
+
   }
   
-  .column {
-    display: flex;
-    flex-direction: column; /* This makes sure your items are stacked vertically */
+.simColumn {
+    margin-top: 0px;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: row;
   }
   
   @media screen and (max-width: 600px) {
@@ -99,7 +118,59 @@ th {
     }
   }
 
+.button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
 
+
+
+
+
+
+.results-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-style: solid;
+    border-color: #5c5c5c;
+    border-width: 2px;
+}
+
+.chart {
+    flex: 2;  /* Allows the chart to take twice the space of the table */
+}
+
+.table-container {
+    flex: 1;  /* Table will take up the remaining space */
+}
+
+.probability-columns {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Creates five columns with equal width */
+    gap: 10px; /* Sets the gap between grid items */
+    justify-content: center; /* This centers the columns in the flex container */
+    flex-wrap: wrap; /* Allows the columns to wrap if needed */
+    gap: 10px;
+    max-width: 1200px; /* Adjust the max width as needed */
+    margin: 0 auto; /* This centers the container itself in the parent */
+}
+
+.column {
+    flex: 1;
+    min-width: calc(20% - 10px); /* Adjust width to fit five columns, accounting for the gap */
+}
+
+.card-probability {
+    margin-bottom: 0px; /* Space between each card's probabilities */
+    border-style: solid;
+    border-color: #979797;
+    border-width: 2px;
+    display: block;
+    /* If needed, add padding here to create space inside each .card-probability */
+}
 
 /* Responsive layout for smaller screens
 @media (max-width: 768px) {

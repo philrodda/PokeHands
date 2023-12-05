@@ -24,7 +24,7 @@ KNOWN_SET_CODES = {"AOR", "AQ", "AR", "ASR", "B2", "BCR", "BKP", "BKT", "BLW", "
                     "CG", "CIN", "CL", "CPA", "CRE", "CRZ", "DAA", "DCR", "DET", "DEX", "DF", "DP", "DR", "DRM", "DRV", "DRX", "DS", \
                     "DX", "EM", "EPO", "EVO", "EVS", "EX", "FCO", "FFI", "FLF", "FLI", "FO", "FST", "G1", "G2", "GE", "GEN", "GRI", "HIF", \
                     "HL", "HP", "HS", "JU", "KSS", "LA", "LC", "LM", "LOR", "LOT", "LTR", "MA", "MD", "MEW", "MT", "N1", "N2", "N3", "N4", \
-                    "NVI", "NXD", "OBF", "PAL", "PGO", "PHF", "PK", "PL", "PLB", "PLF", "PLS", "PRC", "RCL", "RG", "ROS", "RR", "RS", "SF", "SHF", \
+                    "NVI", "NXD", "OBF", "PAL", "PGO", "PHF", "PK", "PL", "PLB", "PAR", "PLF", "PLS", "PRC", "RCL", "RG", "ROS", "RR", "RS", "SF", "SHF", \
                     "SI", "SIT", "SK", "SLG", "SS", "SSH", "STS", "SUM", "SV", "SVI", "SW", "TEU", "TM", "TR", "TRR", "UD", "UF", "UL", "UNB", "UNM", \
                     "UPR", "VIV", "XY"}
 
@@ -105,7 +105,9 @@ def clean_card_name(card_name, current_section):
         cleaned_name = []
 
         for part in parts:
-            if part in KNOWN_SET_CODES:  # Check against known set codes
+            # Check if part is a known set code or set code with a suffix
+            is_set_code_with_suffix = any(part.startswith(code) and (len(part) == 3 or part[3] == '-') for code in KNOWN_SET_CODES)
+            if is_set_code_with_suffix:  # Check against known set codes with possible suffix
                 break
             if part.isnumeric():  # Collection number detected
                 break
@@ -115,7 +117,7 @@ def clean_card_name(card_name, current_section):
     else:
         return card_name
     
-    
+
 from math import comb
 
 
