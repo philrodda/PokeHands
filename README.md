@@ -1,7 +1,7 @@
 ## PokeHands
-#A probability estimator for the Pokemon TCG
+## A probability estimator for the Pokemon TCG
 
-#This is an in-progress web app to help determine specific probabilities related to the Pokemon TCG and competitive play.
+## This is an in-progress web app to help determine specific probabilities related to the Pokemon TCG and competitive play.
 
 It is compatible with Pokemon TCG: Live exported decklists, and all you have to do is copy to clipboard from the game and paste directly into the homepage.
 
