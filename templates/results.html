@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="sample-header">
-    <h1>Deck Analysis Results</h1>
+    <h1>DECK ANALYSIS RESULTS</h1>
 </div>
     <!-- Display results here -->
     <p>{{ decklist }}</p>
@@ -96,7 +96,7 @@
     <div class="sim">
         <div class="simColumn">
 
-            <h2>Simulated Opening Hand</h2>
+            <h3>Simulated Opening Hand</h3>
 
             <ul>
                 {% for card in initial_hand %}
@@ -106,7 +106,8 @@
         </div>
 
         <div class="simColumn">
-            <h2>Simulated Prize Cards</h2>
+        
+            <h3>Simulated Prize Cards</h3>
 
             <ul>
                 {% for card in prize_cards %}
@@ -132,9 +133,11 @@
 </div>
 
 <div class="new-deck-form-container">
+    <div class="newdeck">
     <form action="/" method="get">
         <input type="submit" value="Analyze New Deck" class="new-deck-button"/>
     </form>
+    </div>
 </div>
 
 
@@ -143,6 +146,11 @@
         <img src="static\images\375px-011metapodpng.png" alt="Peeking Pokemon" class="peeking-image">
         <a href="mailto:your-email@example.com?subject=Bug Report for PokeHands&body=Please describe the bug in detail:" class="report-bug-button">Report a Bug</a>
     </div>
+
+    <!-- <img src="static\images\body_bg.png" alt="Peeking Pokemon" class="peeking-image"> -->
+
+
+
 </footer>
 
     <!-- <canvas id="drawChanceChart" width="400" height="200"></canvas> -->
