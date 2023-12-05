@@ -33,6 +33,7 @@ KNOWN_SET_CODES = {"AOR", "AQ", "AR", "ASR", "B2", "BCR", "BKP", "BKT", "BLW", "
 
 
 def parse_decklist(decklist_string):
+    
     # Dictionary to hold the card names and quantities
     decklist = {}       
     
