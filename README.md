@@ -7,7 +7,9 @@ It is compatible with Pokemon TCG: Live exported decklists, and all you have to 
 
 For example:
 
-Pokémon: 12
+
+
+'''Pokémon: 12
 1 Charmeleon OBF 27
 2 Charmander MEW 4
 3 Charizard ex OBF 228
@@ -42,7 +44,7 @@ Trainer: 16
 Energy: 1
 9 Basic {R} Energy SVE 2 PH
 
-Total Cards: 60
+Total Cards: 60 '''
 
 
 Will spit out the probabilities for drawing at least one of each card, and the probabilities of specific amounts being in your prize cards. 
