@@ -21,8 +21,8 @@ def home():
 
 def parse_decklist(decklist_string):
     # Dictionary to hold the card names and quantities
-    decklist = {}
-
+    decklist = {}       
+    
     # Mapping for basic energy types
     energy_types = {
         "{D}": "Dark",
@@ -40,6 +40,26 @@ def parse_decklist(decklist_string):
 
     # Keep track of the current section (Pokémon, Trainer, or Energy)
     current_section = None
+
+    # Helper function to remove set codes and collection numbers
+    def clean_card_name(card_name, current_section):
+        if current_section in ['Trainer', 'Energy']:
+            # Split the card name into parts
+            parts = card_name.split(' ')
+            # Rebuild the card name excluding set codes and collection numbers
+            cleaned_name = []
+            for part in parts:
+                if part.isupper() and len(part) == 3:  # Set code detected
+                    break
+                if part.isnumeric():  # Collection number detected
+                    break
+                cleaned_name.append(part)
+            return ' '.join(cleaned_name)
+        else:
+            # For Pokémon, return the name as is
+            return card_name
+
+
 
     # Iterate over each line to process it
     for line in lines:
@@ -76,10 +96,8 @@ def parse_decklist(decklist_string):
                     break
 
 
-        # For Trainer and Energy cards, ignore set codes and collection numbers
-        if current_section in ['Trainer', 'Energy']:
-            # Remove set codes and collection numbers, if any
-            card_name = ' '.join(card_name.split(' ')[:-2])
+        # Clean the card name using the helper function
+        card_name = clean_card_name(card_name, current_section)
 
         # Add the card to the decklist with its quantity
         decklist[card_name] = decklist.get(card_name, 0) + quantity
@@ -96,6 +114,8 @@ def calculate_draw_chance(deck_size, copies_in_deck, cards_drawn):
     )
     # Subtract from 1 to get the probability of drawing the card
     return 1 - prob_not_drawing_card
+
+
 
 
 def calculate_probabilities(decklist):
