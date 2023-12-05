@@ -29,7 +29,7 @@
     <table>
         <tr>
             <th>Card Name</th>
-            <th>Probability</th>
+            <th>Probability of Prizing</th>
         </tr>
         {% for card, chances in prize_chances.items() %}
         <tr>
@@ -47,24 +47,41 @@
 
 
     <a id="simulation-results"></a>
-    <h2>Simulated Opening Hand</h2>
-    <ul>
-        {% for card in initial_hand %}
-            <li>{{ card }}</li>
-        {% endfor %}
-    </ul>
 
-    <h2>Simulated Prize Cards</h2>
-    <ul>
-        {% for card in prize_cards %}
-            <li>{{ card }}</li>
-        {% endfor %}
-    </ul>
+
+<div class="sim">
+    <div class="column">
+
+        <h2>Simulated Opening Hand</h2>
+
+        <ul>
+            {% for card in initial_hand %}
+                <li>{{ card }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="column">
+        <h2>Simulated Prize Cards</h2>
+
+        <ul>
+            {% for card in prize_cards %}
+                <li>{{ card }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+
+
 
     <!-- Include a button to re-submit the form and simulate again -->
     <form action="#simulation-results" method="post">
         <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
         <input type="submit" value="Simulate Again">
     </form>
+
+
 </body>
 </html>

@@ -20,7 +20,13 @@ def home():
     return render_template('home.html')
 
 
-
+KNOWN_SET_CODES = {"AOR", "AQ", "AR", "ASR", "B2", "BCR", "BKP", "BKT", "BLW", "BRS", "BS", "BST", "BUS", "CEC", "CEL", "CES", \
+                    "CG", "CIN", "CL", "CPA", "CRE", "CRZ", "DAA", "DCR", "DET", "DEX", "DF", "DP", "DR", "DRM", "DRV", "DRX", "DS", \
+                    "DX", "EM", "EPO", "EVO", "EVS", "EX", "FCO", "FFI", "FLF", "FLI", "FO", "FST", "G1", "G2", "GE", "GEN", "GRI", "HIF", \
+                    "HL", "HP", "HS", "JU", "KSS", "LA", "LC", "LM", "LOR", "LOT", "LTR", "MA", "MD", "MEW", "MT", "N1", "N2", "N3", "N4", \
+                    "NVI", "NXD", "OBF", "PAL", "PGO", "PHF", "PK", "PL", "PLB", "PLF", "PLS", "PRC", "RCL", "RG", "ROS", "RR", "RS", "SF", "SHF", \
+                    "SI", "SIT", "SK", "SLG", "SS", "SSH", "STS", "SUM", "SV", "SVI", "SW", "TEU", "TM", "TR", "TRR", "UD", "UF", "UL", "UNB", "UNM", \
+                    "UPR", "VIV", "XY"}
 
 
 
@@ -47,26 +53,6 @@ def parse_decklist(decklist_string):
 
     # Keep track of the current section (Pokémon, Trainer, or Energy)
     current_section = None
-
-    # Helper function to remove set codes and collection numbers
-    def clean_card_name(card_name, current_section):
-        if current_section in ['Trainer', 'Energy']:
-            # Split the card name into parts
-            parts = card_name.split(' ')
-            # Rebuild the card name excluding set codes and collection numbers
-            cleaned_name = []
-            for part in parts:
-                if part.isupper() and len(part) == 3:  # Set code detected
-                    break
-                if part.isnumeric():  # Collection number detected
-                    break
-                cleaned_name.append(part)
-            return ' '.join(cleaned_name)
-        else:
-            # For Pokémon, return the name as is
-            return card_name
-
-
 
     # Iterate over each line to process it
     for line in lines:
@@ -111,6 +97,25 @@ def parse_decklist(decklist_string):
 
     return decklist
 
+
+    # Helper function to remove set codes and collection numbers
+def clean_card_name(card_name, current_section):
+    if current_section in ['Trainer', 'Energy']:
+        parts = card_name.split(' ')
+        cleaned_name = []
+
+        for part in parts:
+            if part in KNOWN_SET_CODES:  # Check against known set codes
+                break
+            if part.isnumeric():  # Collection number detected
+                break
+            cleaned_name.append(part)
+
+        return ' '.join(cleaned_name)
+    else:
+        return card_name
+    
+    
 from math import comb
 
 

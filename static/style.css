@@ -82,9 +82,28 @@ th {
     background-color: #f8f8f8;
 }
 
-/* Responsive layout for smaller screens */
+.sim {
+    display: flex;
+    padding: 100px; /* This should be in the format of padding: 100px; if you want to apply it on all sides */
+    justify-content: space-around; /* This will space out your columns evenly */
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column; /* This makes sure your items are stacked vertically */
+  }
+  
+  @media screen and (max-width: 600px) {
+    .sim {
+      flex-direction: column; /* Stack the columns on top of each other on smaller screens */
+    }
+  }
+
+
+
+/* Responsive layout for smaller screens
 @media (max-width: 768px) {
     .container {
         width: 95%;
     }
-}
+} */
