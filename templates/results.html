@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
+
+    <img class="lazy" data-src="{{ actual_image_url }}" src="images\load.gif" alt="Card Image">
+
+
     <h1>Deck Analysis Results</h1>
     <!-- Display results here -->
     <p>{{ decklist }}</p>
@@ -45,19 +49,23 @@
         {% endfor %}
     </table>
 
+    <!-- <div id="loading-indicator" style="display: block;">
+        Here you can add an animated loading spinner or any other graphic -->
+
+
 
     <a id="simulation-results"></a>
     <h2>Simulated Opening Hand</h2>
     <ul>
-        {% for card in initial_hand %}
-            <li>{{ card }}</li>
+        {% for card, img_url in initial_hand.items() %}
+            <li><img class="lazy" data-src="https://m.media-amazon.com/images/I/61DkxEl3LFL._AC_UF1000,1000_QL80_.jpg" src="images/load.gif" alt="{{ card }}"></li>
         {% endfor %}
     </ul>
 
     <h2>Simulated Prize Cards</h2>
     <ul>
-        {% for card in prize_cards %}
-            <li>{{ card }}</li>
+        {% for card, img_url in initial_hand.items() %}
+            <li><img class="lazy" data-src="https://m.media-amazon.com/images/I/61DkxEl3LFL._AC_UF1000,1000_QL80_.jpg" src="images/load.gif" alt="{{ card }}"></li>
         {% endfor %}
     </ul>
 
@@ -66,5 +74,44 @@
         <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
         <input type="submit" value="Simulate Again">
     </form>
+
+
+
+    <!-- LAZYLOAD -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+    
+            if ("IntersectionObserver" in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.classList.remove("lazy");
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+    
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImage.src = lazyImage.dataset.src;
+                    lazyImage.classList.remove("lazy");
+                });
+            }
+        });
+
+                window.onload = function() {
+            document.getElementById('loading-indicator').style.display = 'none';
+        };
+    </script>
+
+
+
 </body>
 </html>

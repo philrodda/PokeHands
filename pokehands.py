@@ -1,6 +1,42 @@
 from flask import Flask, render_template, request, jsonify
+from pokemontcgsdk import RestClient
+from pokemontcgsdk import Card
+import aiohttp
+import asyncio
+
 
 app = Flask(__name__)
+
+
+        
+@app.route('/some_route')
+def some_route_function():
+    # Get the event loop for the current thread
+    loop = asyncio.get_event_loop()
+    # Run the async function and wait for the result
+    results = loop.run_until_complete(simulate_opening_hand_and_prize_cards_async(parsed_decklist))
+    # ... use your results to render template or return response ...
+
+
+
+
+
+RestClient.configure('c529afcd-e14e-4104-b37c-80af847439f9')
+
+async def get_card_image_url_async(card_name):
+    async with aiohttp.ClientSession() as session:
+        url = f'https://api.pokemontcg.io/v2/cards?q=name:{card_name}'
+        async with session.get(url) as response:
+            if response.status_code == 200:
+                data = await response.json()
+                return data['cards'][0]['images']['small']
+            else:
+                return 'url_to_default_image'
+            
+
+
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -20,8 +56,14 @@ def home():
     return render_template('home.html')
 
 
-
-
+def get_card_image_url(card_name):
+    cards = Card.where(name=card_name).all()
+    if cards:
+        # Assuming you want the small size image, adjust if necessary
+        return cards[0].image_url_small
+    else:
+        # Return a default image or URL if the card is not found
+        return 'url_to_default_image'
 
 
 
@@ -233,7 +275,12 @@ def simulate_opening_hand_and_prize_cards(decklist):
     # Set aside the next 6 cards for the prize cards
     prize_cards = full_deck[7:13]
     
-    return initial_hand, prize_cards
+    initial_hand_with_images = {card: get_card_image_url(card) for card in initial_hand}
+    prize_cards_with_images = {card: get_card_image_url(card) for card in prize_cards}
+    
+    # Return these dictionaries to be used in your route
+    return initial_hand_with_images, prize_cards_with_images
+    # return initial_hand, prize_cards DONT NEED?
 
 
 
