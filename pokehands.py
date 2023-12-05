@@ -16,7 +16,7 @@ def home():
 
         # Render results.html with probabilities and simulated hands
         return render_template('results.html', draw_chances=draw_chances, prize_chances=prize_chances, initial_hand=initial_hand, prize_cards=prize_cards, raw_decklist=raw_decklist)
-    
+
     return render_template('home.html')
 
 
@@ -116,7 +116,7 @@ def clean_card_name(card_name, current_section):
         return ' '.join(cleaned_name)
     else:
         return card_name
-    
+        
 
 from math import comb
 

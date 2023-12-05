@@ -8,7 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+<div class="sample-header">
     <h1>Deck Analysis Results</h1>
+</div>
     <!-- Display results here -->
     <p>{{ decklist }}</p>
     
@@ -119,6 +121,8 @@
 
 
         <!-- Include a button to re-submit the form and simulate again -->
+
+
     <div class="simButton">
         <form action="#simulation-results" method="post">
             <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
@@ -127,7 +131,11 @@
     </div>
 </div>
 
-
+<div class="new-deck-form-container">
+    <form action="/" method="get">
+        <input type="submit" value="Analyze New Deck" class="new-deck-button"/>
+    </form>
+</div>
 
 
 <footer>
@@ -186,6 +194,8 @@
             }
         });
     </script>
+
+
 
 </body>
 </html>

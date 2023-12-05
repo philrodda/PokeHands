@@ -8,12 +8,15 @@
 </head>
 <body>
     <h1>Pokemon Deck Analyzer</h1>
+    <div class="inputForm">
     <form action="#simulation-results" method="post" onsubmit="return validateDecklist()">
         <textarea name="decklist" rows="20" cols="40" placeholder="Enter your decklist here in PTCGL format."></textarea>
         <br>
-        <input type="submit" value="Analyze Deck">
+        <div class="simButton">
+            <input type="submit" value="Analyze Deck">
+        </div>
     </form>
-
+    </div>
 
     
 </body>
