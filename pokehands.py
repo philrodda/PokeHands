@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
+app.debug = False 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
