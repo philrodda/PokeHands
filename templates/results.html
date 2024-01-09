@@ -124,12 +124,12 @@
         <!-- Include a button to re-submit the form and simulate again -->
 
 
-    <div class="simButton">
-        <form method="post">
-            <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
-            <input type="submit" value="Simulate Again" onclick="simulateAgain();">
-        </form>
-    </div>
+        <div class="simButton">
+            <form method="post" onsubmit="scrollToBottom()">
+                <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
+                <input type="submit" value="Simulate Again">
+            </form>
+        </div>
 </div>
 
 
@@ -206,19 +206,26 @@
         });
     </script>
 
+
 <script>
-    function simulateAgain() {
-        // Perform any form validation or submission here if necessary
-        // ...
-    
-        // Scroll to the simulation results
-        var simulationResults = document.getElementById('simulation-results');
-        simulationResults.scrollIntoView({ behavior: 'smooth' });
-        
-        // Prevent the default form submission if you handle it via AJAX
-        // return false;
+    function scrollToBottom() {
+        // Delay the scroll action by 100 milliseconds
+        window.setTimeout(function () {
+            window.scrollTo(0, document.body.scrollHeight);
+        }, 100);
     }
-    </script>
+</script>
+
+
+<script>
+    // Add an event listener to the "Simulate Again" button
+    document.querySelector('input[type="submit"]').addEventListener('click', function() {
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+</script>
+
+
+
 
 </body>
 </html>
