@@ -25,7 +25,7 @@ KNOWN_SET_CODES = {"AOR", "AQ", "AR", "ASR", "B2", "BCR", "BKP", "BKT", "BLW", "
                     "CG", "CIN", "CL", "CPA", "CRE", "CRZ", "DAA", "DCR", "DET", "DEX", "DF", "DP", "DR", "DRM", "DRV", "DRX", "DS", \
                     "DX", "EM", "EPO", "EVO", "EVS", "EX", "FCO", "FFI", "FLF", "FLI", "FO", "FST", "G1", "G2", "GE", "GEN", "GRI", "HIF", \
                     "HL", "HP", "HS", "JU", "KSS", "LA", "LC", "LM", "LOR", "LOT", "LTR", "MA", "MD", "MEW", "MT", "N1", "N2", "N3", "N4", \
-                    "NVI", "NXD", "OBF", "PAL", "PGO", "PHF", "PK", "PL", "PLB", "PAR", "PLF", "PLS", "PRC", "RCL", "RG", "ROS", "RR", "RS", "SF", "SHF", \
+                    "NVI", "NXD", "OBF", "PAL", "PGO", "PHF", "PK", "PL", "PLB", "PAR", "PAF", "PLF", "PLS", "PRC", "RCL", "RG", "ROS", "RR", "RS", "SF", "SHF", \
                     "SI", "SIT", "SK", "SLG", "SS", "SSH", "STS", "SUM", "SV", "SVI", "SW", "TEU", "TM", "TR", "TRR", "UD", "UF", "UL", "UNB", "UNM", \
                     "UPR", "VIV", "XY"}
 
