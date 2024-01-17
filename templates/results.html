@@ -124,12 +124,12 @@
         <!-- Include a button to re-submit the form and simulate again -->
 
 
-    <div class="simButton">
-        <form method="post">
-            <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
-            <input type="submit" value="Simulate Again" onclick="simulateAgain();">
-        </form>
-    </div>
+        <div class="simButton">
+            <form method="post" id="simulationForm">
+                <textarea name="decklist" style="display:none;">{{ raw_decklist }}</textarea>
+                <input type="submit" value="Simulate Again">
+            </form>
+        </div>
 </div>
 
 
@@ -158,7 +158,7 @@
 
     <!-- <canvas id="drawChanceChart" width="400" height="200"></canvas> -->
 
-    <script>
+<script>
 
         var draw_chances = {{ draw_chances | tojson }};
         var labels = Object.keys(draw_chances);
@@ -204,21 +204,8 @@
                 }
             }
         });
-    </script>
+</script>
 
-<script>
-    function simulateAgain() {
-        // Perform any form validation or submission here if necessary
-        // ...
-    
-        // Scroll to the simulation results
-        var simulationResults = document.getElementById('simulation-results');
-        simulationResults.scrollIntoView({ behavior: 'smooth' });
-        
-        // Prevent the default form submission if you handle it via AJAX
-        // return false;
-    }
-    </script>
 
 </body>
 </html>
